@@ -60,12 +60,12 @@ public class XMPP {
 
         if(connection!=null && connection.isAuthenticated()){
             ChatManager chatManager = connection.getChatManager();
-            MessageListener listener = new MessageListener() {
+            Chat chat = chatManager.createChat(user, new MessageListener() {
                 @Override
                 public void processMessage(Chat arg0, Message arg1) {
+                    System.out.println("Message: "+arg1.getBody());
                 }
-            };
-            Chat chat = chatManager.createChat(user, listener);
+            });
             return chat;
         }else{
             return null;

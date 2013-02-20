@@ -13,7 +13,6 @@ package org.xmpp;
 
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import org.jivesoftware.smack.RosterEntry;
@@ -45,6 +44,8 @@ public class HTalk extends javax.swing.JFrame {
         jList1 = new javax.swing.JList(defaultListModel);
         jLabel2 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
+        jTextField2 = new javax.swing.JTextField();
+        jPasswordField1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,6 +81,17 @@ public class HTalk extends javax.swing.JFrame {
         jLabel2.setText("Contacts");
         jLabel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        jTextField2.setText("Username");
+        jTextField2.setToolTipText("Username");
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
+
+        jPasswordField1.setText("jPasswordField1");
+        jPasswordField1.setToolTipText("Password");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -90,54 +102,42 @@ public class HTalk extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 843, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(jTabbedPane1)
                             .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE))
-                        .addGap(10, 10, 10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE))))
+                            .addComponent(jScrollPane1)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTabbedPane1)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(XMPP.getConnection()==null){
-            jButton1Connect(evt);
-                        
-            if(XMPP.getConnection().isAuthenticated()){
-                contacts = XMPP.getContacts();
-                if(contacts!=null && contacts.size()>0){
-                    Iterator<RosterEntry> it = contacts.iterator();
-                    while(it.hasNext()){
-                        RosterEntry entry = it.next();
-                        defaultListModel.addElement(entry);
-                    }
-                }
-            }
-        }else{
-            jButton1Disconnect(evt);
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
@@ -146,7 +146,7 @@ public class HTalk extends javax.swing.JFrame {
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
         if(evt.getKeyCode()==10){
             //Insert Google Contact
-	    XMPP.chat("", jTextField1.getText());
+	    XMPP.chat("rubensalinasgarcia@gmail.com", jTextField1.getText());
             jTextField1.setText("");
         }
     }//GEN-LAST:event_jTextField1KeyReleased
@@ -162,12 +162,37 @@ public class HTalk extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jList1ValueChanged
 
-    private boolean jButton1Connect(java.awt.event.ActionEvent evt){
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if(XMPP.getConnection()==null){
+            xmppConnect(evt);
+
+            if(XMPP.getConnection().isAuthenticated()){
+                contacts = XMPP.getContacts();
+                if(contacts!=null && contacts.size()>0){
+                    Iterator<RosterEntry> it = contacts.iterator();
+                    while(it.hasNext()){
+                        RosterEntry entry = it.next();
+                        defaultListModel.addElement(entry);
+                    }
+                }
+            }
+        }else{
+            xmppDisconnect(evt);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private boolean xmppConnect(java.awt.event.ActionEvent evt){
         if(XMPP.getConnection()==null){
 	    //Insert GOOGLE ACCOUNT
-            XMPP.connect("", "");
+            XMPP.connect(jTextField2.getText(), new String(jPasswordField1.getPassword()));
             jLabel1.setText("Connected.");
             jButton1.setText("Disconnect");
+            jTextField2.setEnabled(false);
+            jPasswordField1.setEnabled(false);
             return true;
         }else{
             jLabel1.setText("Error connecting.");
@@ -175,11 +200,15 @@ public class HTalk extends javax.swing.JFrame {
         }
     }
 
-    private void jButton1Disconnect(java.awt.event.ActionEvent evt){
+    private void xmppDisconnect(java.awt.event.ActionEvent evt){
         if(XMPP.getConnection()!=null){
             XMPP.disconnect();
             jLabel1.setText("Disconnected.");
             jButton1.setText("Connect");
+            jTextField2.setEnabled(true);
+            jTextField2.setText("Username");
+            jPasswordField1.setEnabled(true);
+            jPasswordField1.setText("password");
             defaultListModel.removeAllElements();
         }
     }
@@ -200,9 +229,11 @@ public class HTalk extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JList jList1;
+    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 
     // Other variables
